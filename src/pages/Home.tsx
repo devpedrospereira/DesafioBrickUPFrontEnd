@@ -181,8 +181,10 @@ const data = [
         image: "./src/images/img-card-exemple.png",
         status: "done",
         name: "Montar estrutura da colu...",
-    }
+    },
 ];
+
+const number = 1;
 
 export function Home() {
     return (
@@ -215,6 +217,15 @@ export function Home() {
                 <div className="w-[3rem] h-[3rem] bg-yellow-800 rounded-2xl fixed right-7 top-6 flex  items-center justify-center hover:opacity-80 cursor-pointer transition">
                     <ArrowLeft size={20} color="#ffffff" weight="bold" />
                 </div>
+
+
+
+
+
+
+
+
+
 
                 {data.map((task: DataTask) => {
                     return (
@@ -259,6 +270,10 @@ export function Home() {
                         </article>
                     );
                 })}
+                
+
+
+
             </main>
         </div>
     );
