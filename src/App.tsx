@@ -1,14 +1,12 @@
+import {BrowserRouter} from 'react-router-dom';
+import { Router } from "./Router";
 
 function App() {
   return (
-    <div>
-        <div className="w-5 h-5">
-        
-          <h1 >Pedro</h1>
-
-        </div>
-    </div>
-  )
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
