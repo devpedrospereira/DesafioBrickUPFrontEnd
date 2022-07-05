@@ -1,4 +1,5 @@
 import { Plus, ArrowLeft, House } from "phosphor-react";
+import { ChangeEvent, useState } from "react";
 
 interface DataTask {
     id: number;
@@ -8,14 +9,27 @@ interface DataTask {
 }
 
 export function NewSheduling() {
+    const [images, setImages] = useState<File[]>([]);
+    const [previewImages, setPreviewImages] = useState<string[]>([]);
+
+    const handlePreviewImage = (event: ChangeEvent<HTMLInputElement>) => {
+        if (!event.target.files) {
+            return;
+        }
+
+        const selectedImages = Array.from(event.target.files);
+
+        setImages(selectedImages);
+
+        const selectedImagePreview = selectedImages.map((image) => {
+            return URL.createObjectURL(image);
+        });
+
+        setPreviewImages(selectedImagePreview);
+    };
+
     return (
         <div className="w-full min-h-screen bg-blue-50 flex flex-row">
-            {/* 
-            
-                Menu lateral 
-
-            */}
-
             <header className="w-24 h-[41rem] flex flex-col items-center justify-center  bg-yellow-800  fixed ">
                 <img
                     src="./src/images/logoBrickUp.svg"
@@ -23,15 +37,9 @@ export function NewSheduling() {
                     className="w-16 fixed  top-[1.28rem] left-[1rem]"
                 />
                 <div className="w-[3.62rem] h-[3.62rem] bg-white rounded-full flex  items-center justify-center fixed top-[(50vh)_-_25%] hover:scale-110 cursor-pointer transition ">
-                <House size={32} color="#FFB715" weight="light" />
+                    <House size={32} color="#FFB715" weight="light" />
                 </div>
             </header>
-
-            {/* 
-            
-                Conteúdo principal
-
-            */}
 
             <main className="w-full h-full flex pt-[4.62rem] px-20 flex-wrap justify-center">
                 {/* btn return */}
@@ -47,29 +55,72 @@ export function NewSheduling() {
 
                         <div className="mt-6 mb-7 w-[100%] border-b-2 border-blue-100 "></div>
 
-                        <label className="text-base font-medium text-blue-500">
+                        <label className="text-lg font-medium text-blue-500">
                             Título
                         </label>
 
-                        <input type="textarea" name="GetName" className="w-[100%] mt-2 mb-7 border py-5 px-4 text-base font-normal text-blue-500  border-blue-100 rounded bg-blue-50" />
-                        
-                        <label className=" text-base font-medium text-blue-500">
-                            Descrição <span className="font-light text-sm">Máximo de 300 catacteres</span>
-                        </label>
-                        
-                        <textarea  name="GetDescription" wrap='hard' autoComplete="on" maxLength={300}  className="resize-none w-[100%] mt-2 mb-7 border py-5 px-4 text-base font-normal text-blue-500  border-blue-100 rounded bg-blue-50 flex-wrap"/>
+                        <input
+                            type="textarea"
+                            name="GetName"
+                            className="w-[100%] mt-2 mb-7 border py-5 px-4 text-base font-normal text-blue-500  border-blue-100 rounded bg-blue-50"
+                        />
 
-                        <label htmlFor='GetImage' className="text-base font-medium text-blue-500">
+                        <label className=" text-lg font-medium text-blue-500">
+                            Descrição{" "}
+                            <span className="font-light text-sm">
+                                (Máximo de 300 catacteres)
+                            </span>
+                        </label>
+
+                        <textarea
+                            name="GetDescription"
+                            wrap="hard"
+                            autoComplete="on"
+                            maxLength={300}
+                            className="resize-none w-[100%] mt-2 mb-7 border py-5 px-4 text-base font-normal text-blue-500  border-blue-100 rounded bg-blue-50 flex-wrap"
+                        />
+
+                        <label
+                            htmlFor="GetImage"
+                            className="text-lg font-medium text-blue-500"
+                        >
                             Fotos
                         </label>
 
-                        {/* <input type="file" multiple id="GetImage" name="GetImage" accept="image/*,.pdf" className=" bg-blue-100 " /> */}
+                        <label
+                            htmlFor="GetImage"
+                            className={`w-24 h-24 mt-2 mb-3 rounded-3xl  ${
+                                previewImages[0]
+                                    ? ""
+                                    : "border border-dashed border-yellow-800"
+                            }  bg-blue-50 flex items-center justify-center hover:cursor-pointer overflow-hidden`}
+                        >
+                            {previewImages[0] ? (
+                                <img
+                                    src={previewImages[0]}
+                                    alt="Imagem Selecionada"
+                                    className="w-full h-full"
+                                />
+                            ) : (
+                                ""
+                            )}
 
-                        <button className="w-24 h-24 mt-2 mb-3 rounded-3xl border border-dashed border-yellow-800 bg-blue-50 flex items-center justify-center">
                             <Plus color="#ffb715" size={20} weight="bold" />
-                        </button>
+                        </label>
 
-                        <button className='w-[100%] h-16 bg-yellow-800 rounded-lg mt-12 flex items-center justify-center text-base font-bold text-white hover:opacity-80 hover:cursor-pointer transition-opacity'>Salvar</button>
+                        <input
+                            type="file"
+                            multiple
+                            id="GetImage"
+                            name="GetImage"
+                            accept="image/*,.pdf"
+                            className="hidden"
+                            onChange={handlePreviewImage}
+                        ></input>
+
+                        <button className="w-[100%] h-16 bg-yellow-800 rounded-lg mt-12 flex items-center justify-center text-base font-bold text-white hover:opacity-80 hover:cursor-pointer transition-opacity">
+                            Salvar
+                        </button>
                     </form>
                 </div>
             </main>
