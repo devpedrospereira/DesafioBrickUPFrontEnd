@@ -197,7 +197,7 @@ export function Home() {
 
             <header className="w-24 min-h-screen flex flex-col items-center justify-center  bg-yellow-800  ">
                 <img
-                    src="./src/images/up-logo.png"
+                    src="./src/images/logoBrickUp.svg"
                     alt="Logo Bickup"
                     className="w-16 fixed  top-[1.28rem] left-[1rem]"
                 />
