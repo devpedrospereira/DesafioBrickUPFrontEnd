@@ -29,6 +29,7 @@ textarea,
 select,
 button {
     font: 400 1rem "Roboto", sans-serif;
+
 }
 
 button {
@@ -42,23 +43,18 @@ a {
 
 /* Works on Firefox */
 * {
-    scrollbar-width: thin;
-    scrollbar-color: #FFB715;
+    scrollbar-width: none;
+    scrollbar-color: #aaaaaa;
   }
   
   /* Works on Chrome, Edge, and Safari */
   *::-webkit-scrollbar {
-    width: 12px;
+    width: 8px;
+    background-color: #aaaaaa;
   }
 
   
   *::-webkit-scrollbar-thumb {
-    background-color: #FFB715;
-    border-radius: 1px;
+    background-color: #aaaaaa;
+    border-radius: 800px;
   }
-
-//   input{
-//     text-decoration: none;
-//     dec
-//     // display: none;
-//   }
