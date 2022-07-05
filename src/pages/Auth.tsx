@@ -10,7 +10,7 @@ interface DataTask {
 export function Auth() {
     return (
         <div className="w-screen min-h-screen flex flex-row">
-            <div className="flex-1 min-h-screen flex px-9 gap-8  flex-col items-center justify-center bg-yellow-800 gap-8 ">
+            <div className="flex-1 min-h-screen flex px-9 gap-8  flex-col items-center justify-center bg-yellow-800 ">
                 <img src="./src/images/logoMain.svg" alt="Logo Bickup" />
                 <h1 className="text-xl font-bold text-white">Schedules</h1>
             </div>
