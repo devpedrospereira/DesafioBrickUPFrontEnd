@@ -16,13 +16,13 @@ export function NewSheduling() {
 
             */}
 
-            <header className="w-24 min-h-screen flex flex-col items-center justify-center  bg-yellow-800  ">
+            <header className="w-24 h-[41rem] flex flex-col items-center justify-center  bg-yellow-800  fixed ">
                 <img
                     src="./src/images/logoBrickUp.svg"
                     alt="Logo Bickup"
                     className="w-16 fixed  top-[1.28rem] left-[1rem]"
                 />
-                <div className="w-[3.62rem] h-[3.62rem] bg-white rounded-2xl flex  items-center justify-center fixed top-[50vh] hover:opacity-90 cursor-pointer transition">
+                <div className="w-[3.62rem] h-[3.62rem] bg-white rounded-2xl flex  items-center justify-center fixed top-[(50vh)_-_25%] hover:opacity-90 cursor-pointer transition">
                     <Plus color="#ffb715" size={20} weight="bold" />
                 </div>
             </header>
@@ -39,24 +39,39 @@ export function NewSheduling() {
                     <ArrowLeft size={20} color="#ffffff" weight="bold" />
                 </div>
 
-                
                 <div className="w-[44.25rem] h-[43.5rem] px-20 py-10 bg-white border border-blue-100 rounded-lg flex flex-col items-start justify-start">
+                    <form className="w-[100%] flex flex-col items-start justify-start">
+                        <h1 className="text-2xl font-bold text-blue-800">
+                            Novo Agendamento
+                        </h1>
 
-                    <form className="flex flex-col items-start justify-start">
-                        <h1 className="text-2xl font-bold text-blue-800">Novo Agendamento</h1>
-                        <div className="pt-6 pb-7 w-[35.25rem] max-h-[10px] bg-blue-100">a</div>
-                        <label>Title</label>
-                        <input type="textarea" name="GetName" />
-                        <label>Descrição</label>
-                        <input type="textarea" name="GetDescription" />
-                        <label>Fotos</label>
-                        <input type="file" name="GetImage"/>
-                        <button>Salvar </button>
-                    </form>
+                        <div className="mt-6 mb-7 w-[100%] border-b-2 border-blue-100 "></div>
+
+                        <label className="text-base font-medium text-blue-500">
+                            Título
+                        </label>
+
+                        <input type="textarea" name="GetName" className="w-[100%] mt-2 mb-7 border py-5 px-4 text-base font-normal text-blue-500  border-blue-100 rounded bg-blue-50" />
                         
+                        <label className=" text-base font-medium text-blue-500">
+                            Descrição <span className="font-light text-sm">Máximo de 300 catacteres</span>
+                        </label>
+                        
+                        <textarea  name="GetDescription" wrap='hard' autoComplete="on" maxLength={300}  className="resize-none w-[100%] mt-2 mb-7 border py-5 px-4 text-base font-normal text-blue-500  border-blue-100 rounded bg-blue-50 flex-wrap"/>
+
+                        <label htmlFor='GetImage' className="text-base font-medium text-blue-500">
+                            Fotos
+                        </label>
+
+                        {/* <input type="file" multiple id="GetImage" name="GetImage" accept="image/*,.pdf" className=" bg-blue-100 " /> */}
+
+                        <button className="w-24 h-24 mt-2 mb-3 rounded-3xl border border-dashed border-yellow-800 bg-blue-50 flex items-center justify-center">
+                            <Plus color="#ffb715" size={20} weight="bold" />
+                        </button>
+
+                        <button className='w-[100%] h-16 bg-yellow-800 rounded-lg mt-12 flex items-center justify-center text-base font-bold text-white hover:opacity-80 hover:cursor-pointer transition-opacity'>Salvar</button>
+                    </form>
                 </div>
-        
-                
             </main>
         </div>
     );
