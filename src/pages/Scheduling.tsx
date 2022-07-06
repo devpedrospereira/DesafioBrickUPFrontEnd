@@ -36,7 +36,7 @@ export default function Scheduling() {
   // }
   const handleDelete = async () => {
     await deleteScheduling(id!);
-    navigate("../", { replace: true });
+    navigate("../home", { replace: true });
   };
 
   return (
@@ -124,14 +124,12 @@ export default function Scheduling() {
         </div>
       </main>
 
-      {/* <Link> */}
       <Link
-        to="/"
+        to="/home"
         className="w-[3rem] h-[3rem] bg-yellow-800 rounded-2xl fixed right-7 top-6 flex  items-center justify-center hover:opacity-80 cursor-pointer transition"
       >
         <ArrowLeft size={20} color="#ffffff" weight="bold" />
       </Link>
-      {/* </Link> */}
     </div>
   );
 }

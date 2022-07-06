@@ -50,10 +50,6 @@ export default function Home() {
           ? NoData()
           : data.map((props) => SchedulingsCards(props))}
       </main>
-
-      <button className="w-[3rem] h-[3rem] bg-yellow-800 rounded-2xl fixed right-7 top-6 flex  items-center justify-center hover:opacity-80 cursor-pointer transition">
-        <ArrowLeft size={20} color="#ffffff" weight="bold" />
-      </button>
     </div>
   );
 }

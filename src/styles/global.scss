@@ -29,8 +29,14 @@ textarea,
 select,
 button {
     font: 400 1rem "Roboto", sans-serif;
-
+   
 }
+
+textarea:focus, input:focus, select:focus {
+    box-shadow: 0 0 0 0;
+    border: 1px solid #FFB715;
+    outline: 0;
+} 
 
 button {
     cursor: pointer;
