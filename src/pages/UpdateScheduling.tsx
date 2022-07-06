@@ -1,22 +1,44 @@
 import { Plus, ArrowLeft, House } from "phosphor-react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import LogoUp from "../images/logo-up.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import classNames from "classnames";
 import { Form } from "@unform/web";
 import { ImageInput, Input, TextArea } from "../components/Inputs";
-import { createScheduling } from "../api/repository";
+import { api } from "../api/axios";
+import deleteIcon from "../images/icons/trash.svg";
+import { deleteScheduling, updateScheduling } from "../api/repository";
 
-export default function NewSheduling() {
+interface ISchedulingsData {
+  id: string;
+  title: string;
+  description: string;
+  slug: string;
+  status: "progress" | "pendding" | "done";
+  imageSrc: string;
+}
+
+export default function UpdateSheduling() {
+  const [image, setImages] = useState<File[]>([]);
+  const [data, setData] = useState<ISchedulingsData>();
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const navigate = useNavigate();
-  let flag = false;
+  const { id } = useParams();
+
+  if (!id) {
+    return <></>;
+  }
+
+  useEffect(() => {
+    api.get(`/schedulings/${id}`).then((res) => setData(res.data));
+  }, []);
 
   const handlePreviewImage = (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) {
       return;
     }
     const selectedImages = Array.from(event.target.files);
+    setImages(selectedImages);
     const selectedImagePreview = selectedImages.map((image) => {
       return URL.createObjectURL(image);
     });
@@ -24,7 +46,10 @@ export default function NewSheduling() {
   };
 
   async function handleSubmit(form: any) {
-    flag = true;
+    if (!id) return;
+
+    const formData = new FormData();
+
     const data = {
       slug: "",
       status: "pendding",
@@ -32,16 +57,20 @@ export default function NewSheduling() {
       description: form.description,
     };
 
-    const formData = new FormData();
     formData.append("data", JSON.stringify(data));
 
     if (form.image) {
       formData.append("image", form.image, form.image.name);
     }
 
-    await createScheduling(formData);
-    navigate("/home");
+    await updateScheduling(id, formData);
+    navigate("../home");
   }
+
+  const handleDelete = async () => {
+    await deleteScheduling(id);
+    navigate("../home", { replace: true });
+  };
 
   return (
     <div className="w-full min-h-screen bg-blue-50 flex flex-row">
@@ -72,10 +101,17 @@ export default function NewSheduling() {
             className="w-[100%] flex flex-col items-start justify-start gap-8"
           >
             <div className="w-full">
-              <h1 className="text-2xl font-bold text-blue-800">
-                Novo Agendamento
-              </h1>
-
+              <div className="flex justify-between w-full">
+                <h1 className="text-2xl font-bold text-blue-800">
+                  Alterar agendamento
+                </h1>
+                <img
+                  onClick={handleDelete}
+                  src={deleteIcon}
+                  alt="Editar"
+                  className="w-[1.25rem] h-[1.25rem] hover:opacity-70 cursor-pointer transition"
+                />
+              </div>
               <div className="mt-6 mb-7 w-[100%] border-b-2 border-blue-100 "></div>
             </div>
 
@@ -87,6 +123,7 @@ export default function NewSheduling() {
               <Input
                 type="text"
                 name="title"
+                defaultValue={data?.title}
                 className="w-[100%] border py-5 px-4 text-base font-normal text-blue-500  border-blue-100 rounded bg-blue-50"
               />
             </div>
@@ -104,6 +141,7 @@ export default function NewSheduling() {
                 name="description"
                 type="text"
                 wrap="hard"
+                defaultValue={data?.description}
                 autoComplete="on"
                 maxLength={300}
                 className="resize-none w-[100%] h-[10rem] border py-5 px-4 text-base font-normal text-blue-500 border-blue-100 rounded bg-blue-50 flex-wrap"
@@ -150,8 +188,7 @@ export default function NewSheduling() {
 
             <button
               type="submit"
-              disabled={flag}
-              className="w-[100%] h-16 bg-yellow-800 rounded-lg flex items-center justify-center text-base font-bold text-white  hover:opacity-80 hover:cursor-pointer disabled:opacity-80 transition-opacity"
+              className="w-[100%] h-16 bg-yellow-800 rounded-lg flex items-center justify-center text-base font-bold text-white hover:opacity-80 hover:cursor-pointer transition-opacity"
             >
               Salvar
             </button>

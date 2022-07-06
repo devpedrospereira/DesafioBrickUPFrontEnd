@@ -16,7 +16,7 @@ export default function SchedulingsCards(props: ISchedulingsData) {
   return (
     <Link to={`/scheduling/${id}`}>
       <div
-        key={id}
+       
         className="group h-[15.56rem] w-[20.06rem] mr-5 mb-10 bg-white border-2 border-blue-100 rounded-lg overflow-hidden flex flex-col hover:border-yellow-800 hover:opacity-90  transition"
         //   onClick={handleClick}
       >

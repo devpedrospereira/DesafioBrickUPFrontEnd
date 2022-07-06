@@ -1,15 +1,20 @@
 import { api } from "./axios";
+import { useNavigate } from "react-router-dom";
 
-async function deleteScheduling(id: string) {
-  await api.delete(`/schedulings/${id}`);
+export async function deleteScheduling(id: string) {
+  await api.delete(`/schedulings/delete/${id}`);
 }
 
-// async function updateScheduling() {
-//   await api.put(`/schedulings/${id}`);
-// }
+export async function updateScheduling(id: string, data: FormData) {
+  const headers = {
+    "Content-Type": "application/json",
+    id: `${id}`,
+  };
+  await api.post(`/schedulings`, data, {
+    headers: headers,
+  });
+}
 
-// async function createScheduling() {
-//   await api.post(`/schedulings/${id}`);
-// }
-
-export { deleteScheduling };
+export async function createScheduling(data: FormData) {
+  await api.post(`/schedulings`, data);
+}

@@ -5,21 +5,24 @@ import { useParams } from "react-router-dom";
 import deleteIcon from "../images/icons/trash.svg";
 import editIcon from "../images/icons/pencil.svg";
 import { useNavigate, Link } from "react-router-dom";
-import { deleteScheduling } from "../api/repository";
 import { ArrowLeft, House, Plus } from "phosphor-react";
 import LogoUp from "../images/logo-up.svg";
+import { deleteScheduling } from "../api/repository";
 
 interface ISchedulingsData {
   id: string;
   title: string;
   description: string;
   slug: string;
-  status: "progress" | "pedding" | "done";
+  status: "progress" | "pendding" | "done";
   imageSrc: string;
 }
 
 export default function Scheduling() {
   let { id } = useParams();
+
+  if (!id) return;
+
   const navigate = useNavigate();
   const [data, setData] = useState<ISchedulingsData | undefined>(undefined);
 
@@ -31,12 +34,13 @@ export default function Scheduling() {
     return <></>;
   }
 
-  // const handleEdit = async () => {
-  //   api.put(`/schedulings/${id}`).then((res: any) => setData(res.data));
-  // }
+  const handleUpdate = () => {
+    navigate(`../scheduling/update/${id}`);
+  };
+
   const handleDelete = async () => {
     await deleteScheduling(id!);
-    navigate("../home", { replace: true });
+    navigate("../home");
   };
 
   return (
@@ -52,7 +56,7 @@ export default function Scheduling() {
             type="button"
             className="w-[3.62rem] h-[3.62rem] bg-white rounded-2xl flex  items-center justify-center hover:scale-110 cursor-pointer transition"
           >
-           <House size={32} color="#FFB715" weight="light" />
+            <House size={32} color="#FFB715" weight="light" />
           </button>
         </Link>
       </nav>
@@ -68,7 +72,7 @@ export default function Scheduling() {
 
                 <div className="flex items-center gap-4">
                   <img
-                    // onClick={handleEdit}
+                    onClick={handleUpdate}
                     src={editIcon}
                     alt="Editar"
                     className="w-[1.25rem] h-[1.25rem] hover:opacity-70 cursor-pointer transition"
@@ -99,7 +103,7 @@ export default function Scheduling() {
               </label>
               <div
                 className={classNames("w-16 h-4 rounded-md", {
-                  "bg-red-500": data.status === "pedding",
+                  "bg-red-500": data.status === "pendding",
                   "bg-yellow-500": data.status === "progress",
                   "bg-green-700": data.status === "done",
                 })}

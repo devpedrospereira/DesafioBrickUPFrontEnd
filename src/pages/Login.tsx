@@ -30,8 +30,8 @@ export default function Login() {
           <input
             type="password"
             name="password"
-            placeholder="*****************"
-            className="w-[100%] mt-2 mb-7 border py-5 px-4 text-lg font-normal text-blue-500  border-blue-100 rounded bg-white rounded-lg"
+            placeholder="**********"
+            className="w-[100%] mt-2 mb-7 border py-5 px-4 text-lg font-normal text-blue-500  border-blue-100 bg-white rounded-lg"
           />
           <Link to="/indevelopment">
             <a
